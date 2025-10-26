@@ -51,7 +51,7 @@ public:
 		fio = new char[100];
 		strcpy(fio, "Andrey Petrov");
 		strcpy(home_number, "-");
-		strcpy(work_number, "+79235095964");
+		strcpy(work_number, "89567828531");
 		strcpy(cell_number, "Info");
 	}
 
