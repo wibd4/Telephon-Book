@@ -10,11 +10,13 @@ using std::endl;
 
 size_t count = 0;
 
+
 Abonent abonents[256];
 
 //functions:
 //add
 //delAb
+//editAb
 //findAb
 //printAll
 //save
@@ -119,6 +121,7 @@ void save(Abonent* a, size_t& count)
 	if (abonent) {
 		for (int i = 0; i < count; i++) {
 			fprintf(abonent, "%s, %s, %s, %s", a[i].fio, a[i].home_number, a[i].work_number, a[i].cell_number);
+			fprintf(abonent, "%s", ",");
 			fprintf(abonent, "%s" "\n");
 		}
 	}
@@ -149,7 +152,7 @@ void load(Abonent* a, size_t& count)
 
 	if (abonent) {
 		for (int i = 0; i < count; i++) {
-			fscanf(abonent, "%255[^,], %15[^,], %15[^,], %19[^,]", tmp_f, tmp_h, tmp_w, tmp_c);
+			fscanf(abonent, "%255[^,],%15[^,],%15[^,],%19[^,], ", tmp_f, tmp_h, tmp_w, tmp_c);
 			delete[]a[i].fio;
 			a[i].fio = new char[strlen(tmp_f) + 1];
 			strcpy(a[i].fio, tmp_f);
@@ -176,13 +179,13 @@ int main() {
 		cout << "Выберите действие" << endl;
 		cout << "1 - Добавить контакт" << endl;
 		cout << "2 - Удалить контакт" << endl;
-		cout << "3 - Список всех контактов" << endl;
-		cout << "4 - Найти контакт" << endl;
+		cout << "3 - Редактировать контак" << endl;
+		cout << "4 - Список всех контактов" << endl;
+		cout << "5 - Найти контакт" << endl;
 		cout << "0 - Выход" << endl;
 		cin >> user;
 		switch (user) {
 		case 0: {
-			save(abonents, count);
 			return 0;
 			break;
 		}
@@ -200,10 +203,17 @@ int main() {
 			break;
 		}
 		case 3: {
-			printAll();
+			cout << "Введите порядковый номер контакта: ";
+			cin >> user;
+			abonents[user - 1].edit();
+			save(abonents, count);
 			break;
 		}
 		case 4: {
+			printAll();
+			break;
+		}
+		case 5: {
 			char info[256];
 			cin.ignore();
 			cin.getline(info, 256);
